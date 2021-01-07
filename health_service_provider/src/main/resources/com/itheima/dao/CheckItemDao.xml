@@ -14,4 +14,56 @@
             where code = #{value} or name = #{value}
         </if>
     </select>
+
+    <select id="findById" resultType="com.itheima.pojo.CheckItem">
+        select * from t_checkitem
+       where id=#{id}
+    </select>
+
+    <update id="edit" parameterType="com.itheima.pojo.CheckItem">
+        update t_checkitem
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="attention != null">
+                attention = #{attention},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <select id="findCountByCheckItemId" resultType="int" >
+        select  count(*) from t_checkgroup_checkitem
+        where checkitem_id=#{id}
+    </select>
+
+    <select id="findAll" resultType="com.itheima.pojo.CheckItem">
+        select * from t_checkitem
+    </select>
+
+
+    <delete id="delete">
+        delete from t_checkitem where id=#{id}
+    </delete>
+
+
 </mapper>

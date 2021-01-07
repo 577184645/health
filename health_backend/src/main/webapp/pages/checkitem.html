@@ -230,6 +230,33 @@
             methods: {
                 //编辑
                 handleEdit() {
+                    //表单校验
+                    this.$refs['dataEditForm'].validate((valid)=>{
+                        if(valid){
+                            //表单校验通过，发送请求
+                            axios.post("/checkitem/edit.do",this.formData).then((response)=> {
+                                //隐藏编辑窗口
+                                this.dialogFormVisible4Edit = false;
+                                if(response.data.flag){
+                                    //编辑成功，弹出成功提示信息
+                                    this.$message({
+                                        message: response.data.message,
+                                        type: 'success'
+                                    });
+                                }else{
+                                    //编辑失败，弹出错误提示信息
+                                    this.$message.error(response.data.message);
+                                }
+                            }).finally(()=> {
+                                //重新发送请求查询分页数据
+                                this.findPage();
+                            });
+                        }else{
+                            //表单校验失败
+                            this.$message.error("表单数据校验失败");
+                            return false;
+                        }
+                    });
                 },
                 //添加
                 handleAdd () {
@@ -288,6 +315,19 @@
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
+
+                    //发送请求获取检查项信息
+                    axios.get("/checkitem/findById.do?id=" + row.id).then((res)=>{
+                        if(res.data.flag){
+                            //设置编辑窗口属性，dialogFormVisible4Edit为true表示显示
+                            this.dialogFormVisible4Edit = true;
+                            //为模型数据设置值，基于VUE双向数据绑定回显到页面
+                            this.formData = res.data.data;
+                        }else{
+                            this.$message.error(res.data.message);
+                        }
+                    });
+
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
@@ -297,6 +337,24 @@
                 },
                 // 删除
                 handleDelete(row) {
+                    this.$confirm("确认删除吗？","提示",{type:'warning'}).then(()=>{
+                        //点击确定按钮时只需此处代码
+                        //alert('用户点击的是确定按钮');
+                        axios.get("/checkitem/delete.do?id=" + row.id).then((res)=> {
+                            if(!res.data.flag){
+                                //删除失败
+                                this.$message.error(res.data.message);
+                            }else{
+                                //删除成功
+                                this.$message({
+                                    message: res.data.message,
+                                    type: 'success'
+                                });
+                                //调用分页，获取最新分页数据
+                                this.findPage();
+                            }
+                        });
+                    });
                 }
             }
         })
