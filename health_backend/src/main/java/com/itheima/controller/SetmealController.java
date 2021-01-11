@@ -9,9 +9,9 @@ package com.itheima.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.constant.MessageConstant;
+import com.itheima.constant.RedisConstant;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
-import com.itheima.entity.RedisConstant;
 import com.itheima.entity.Result;
 import com.itheima.pojo.Setmeal;
 import com.itheima.service.SetmealService;
@@ -19,7 +19,6 @@ import com.itheima.utils.QiniuUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.Jedis;
@@ -60,8 +59,13 @@ public class SetmealController {
             }
         }
 
-    }
 
+    }
+    private void savePic2Redis(String pic){
+        Jedis jedis = jedisPool.getResource();
+        jedis.sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES,pic);
+        jedis.close();
+    }
 
     //分页查询
     @RequestMapping("/findPage")

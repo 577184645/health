@@ -3,9 +3,9 @@ package com.itheima.service;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.itheima.constant.RedisConstant;
 import com.itheima.dao.SetmealDao;
 import com.itheima.entity.PageResult;
-import com.itheima.entity.RedisConstant;
 import com.itheima.pojo.Setmeal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +13,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,6 +44,11 @@ public class SetmealServiceImpl implements SetmealService {
         setSetmealAndCheckGroup(setmeal.getId(),checkgroupIds);
         //将图片名称保存到Redis
         savePic2Redis(setmeal.getImg());
+    }
+
+    @Override
+    public List<Setmeal> findAll() {
+        return setmealDao.findAll();
     }
 
     //将图片名称保存到Redis
