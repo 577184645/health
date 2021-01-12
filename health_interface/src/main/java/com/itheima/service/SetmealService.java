@@ -19,4 +19,6 @@ public interface SetmealService {
     void add(Setmeal setmeal, Integer[] checkgroupIds);
 
     List<Setmeal> findAll();
+
+    Setmeal findById(int id);
 }

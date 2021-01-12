@@ -65,5 +65,9 @@
         delete from t_checkitem where id=#{id}
     </delete>
 
+    <select id="findCheckItemByCheckgroupId" resultType="com.itheima.pojo.CheckItem">
+        select * from t_checkitem where id in (SELECT checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{id}  )
+    </select>
+
 
 </mapper>
