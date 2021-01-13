@@ -48,7 +48,7 @@
     <select id="findAll" resultType="com.itheima.pojo.Setmeal">
         select * from t_setmeal
     </select>
-    <select id="findById" resultMap="baseResultMap">
+    <select id="findById" resultMap="baseResultMap" >
     select * from t_setmeal where id=#{id}
     </select>
 </mapper>
