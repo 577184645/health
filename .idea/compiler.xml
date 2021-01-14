@@ -12,6 +12,7 @@
         <module name="health_jobs" />
         <module name="health_mobile" />
         <module name="health_service_provider" />
+        <module name="springsecuritydemo" />
       </profile>
     </annotationProcessing>
   </component>
