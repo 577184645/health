@@ -17,4 +17,7 @@
             parameterType="string" resultType="com.itheima.pojo.Member">
         select * from t_member where phoneNumber = #{phoneNumber}
     </select>
+    <select id="findMemberCountByMonth" resultType="java.lang.Integer">
+        select count(id) from t_member where  regTime &lt;= #{value}
+    </select>
 </mapper>

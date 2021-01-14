@@ -30,7 +30,7 @@ public class UserService implements UserDetailsService {
         com.itheima.pojo.User user1 = new com.itheima.pojo.User();
         user1.setUsername("admin");
         user1.setPassword(passwordEncoder.encode("admin"));
-
+        System.out.println(user1.getPassword());
         com.itheima.pojo.User user2 = new com.itheima.pojo.User();
         user2.setUsername("xiaoming");
         user2.setPassword(passwordEncoder.encode("1234"));
@@ -54,9 +54,8 @@ public class UserService implements UserDetailsService {
             return null;
         }
         String passwordInDb =userInDb.getPassword();
-
+        System.out.println(passwordInDb);
         List<GrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         UserDetails user=new User(username,passwordInDb,list);
         return user;
     }

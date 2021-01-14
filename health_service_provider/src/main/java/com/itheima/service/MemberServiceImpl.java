@@ -7,6 +7,9 @@ import com.itheima.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author: qincan
  * @create: 2021-01-13 13:51
@@ -23,6 +26,16 @@ public class MemberServiceImpl implements MemberService {
     public Member findByTelephone(String telephone) {
         return memberDao.findByTelephone(telephone);
     }
+
+    @Override
+    public List<Integer> findMemberCountByMonth(List<String> list) {
+        List<Integer> countList=new ArrayList<>();
+        for (String s : list) {
+            countList.add(memberDao.findMemberCountByMonth(s+".31"));
+        }
+        return countList;
+    }
+
     //新增会员
     public void add(Member member) {
         if(member.getPassword() != null){

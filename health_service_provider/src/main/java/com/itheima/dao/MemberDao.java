@@ -15,4 +15,6 @@ public interface MemberDao {
 
     void add(Member member);
 
+    int findMemberCountByMonth(String s);
+
 }
