@@ -20,4 +20,13 @@
     <select id="findMemberCountByMonth" resultType="java.lang.Integer">
         select count(id) from t_member where  regTime &lt;= #{value}
     </select>
+    <select id="findMemberCountByDate" resultType="java.lang.Integer">
+        select count(id) from t_order where orderDate = #{value}
+    </select>
+    <select id="findMemberTotalCount" resultType="java.lang.Integer">
+        select count(id) from t_order
+    </select>
+    <select id="findMemberCountAfterDate" resultType="java.lang.Integer">
+         select count(id) from t_order where orderDate &gt;= #{value}
+    </select>
 </mapper>

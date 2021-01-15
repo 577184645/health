@@ -17,4 +17,10 @@ public interface MemberDao {
 
     int findMemberCountByMonth(String s);
 
+    int findMemberCountByDate(String today);
+
+    int findMemberTotalCount();
+
+    int findMemberCountAfterDate(String thisWeekMonday);
+
 }

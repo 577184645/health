@@ -4,6 +4,7 @@ import com.itheima.entity.PageResult;
 import com.itheima.pojo.Setmeal;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: qincan
@@ -21,4 +22,6 @@ public interface SetmealService {
     List<Setmeal> findAll();
 
     Setmeal findById(int id);
+
+    List<Map<String, Object>> findSetmealCount();
 }

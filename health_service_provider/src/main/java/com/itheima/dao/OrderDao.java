@@ -18,4 +18,15 @@ public interface OrderDao {
 
     Map findById4Detail(Integer id);
 
+    Integer findVisitsCountByDate(String today);
+
+
+    Integer findVisitsCountAfterDate(String thisWeekMonday);
+
+    Integer findOrderCountByDate(String today);
+
+    Integer findOrderCountAfterDate(String thisWeekMonday);
+
+    List<Map> findHotSetmeal();
+
 }

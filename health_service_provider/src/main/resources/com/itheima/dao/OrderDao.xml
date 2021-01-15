@@ -46,4 +46,31 @@
              t_setmeal s
         where o.member_id=m.id and o.setmeal_id=s.id and o.id=#{id}
     </select>
+    <!--根据日期统计预约数-->
+    <select id="findOrderCountByDate" parameterType="string" resultType="int">
+        select count(id) from t_order where orderDate = #{value}
+    </select>
+
+    <!--根据日期统计预约数，统计指定日期之后的预约数-->
+    <select id="findOrderCountAfterDate" parameterType="string" resultType="int">
+        select count(id) from t_order where orderDate &gt;= #{value}
+    </select>
+
+    <!--根据日期统计到诊数-->
+    <select id="findVisitsCountByDate" parameterType="string" resultType="int">
+        select count(id) from t_order where orderDate = #{value} and orderStatus = '已到诊'
+    </select>
+
+    <!--根据日期统计到诊数，统计指定日期之后的到诊数-->
+    <select id="findVisitsCountAfterDate" parameterType="string" resultType="int">
+        select count(id) from t_order where orderDate &gt;= #{value} and orderStatus = '已到诊'
+    </select>
+    <select id="findHotSetmeal" resultType="java.util.Map">
+        select name,count(o.id) as setmeal_count,count(o.id)/(select count(id) from t_order) as proportion from t_setmeal s,t_order o
+        where s.id=o.setmeal_id
+        GROUP BY name
+        order by proportion desc
+        LIMIT 0,4
+
+    </select>
 </mapper>
